@@ -1,0 +1,4 @@
+export type ProspectStatus='New'|'Contacted'|'Proposal Sent'|'Follow-up'|'Negotiating'|'Won'|'Lost';
+export type Source={id:string;url:string;platform:string;analysis_status?:string;analysis_content?:string;analysis_metadata?:Record<string,unknown>};
+export type Prospect={id:string;business_name:string;business_type?:string;contact_name?:string;contact_email?:string;contact_phone?:string;location?:string;status:ProspectStatus;analysis_data?:BusinessAnalysis|null;sources?:Source[]};
+export type BusinessAnalysis={businessName?:string;businessType?:string;services:string[];targetAudience:string[];onlinePresence:string[];strengths:string[];weaknesses:string[];missingFeatures:string[];painPoints:string[];opportunities:string[];recommendedServices:string[];facts:{text:string;evidence:'verified'|'inference';source?:string}[];sources:string[]};
