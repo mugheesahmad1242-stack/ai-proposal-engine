@@ -108,9 +108,8 @@ export async function analyzeContent(
 
   const prompt = `Analyze business "${name}" using ONLY the source content below. Do not invent facts that are not supported by the content. Extract services, target audience, online presence, strengths, weaknesses, missing features, pain points, opportunities and recommended services as short string arrays (empty array if none are evident). For "facts", list concrete statements you found, each marked evidence:"verified" if directly stated in the content or evidence:"inference" if reasonably inferred. If the content has no useful business information, return empty arrays and an empty facts list rather than guessing. Respond with JSON only, matching this shape exactly: {"services":[],"targetAudience":[],"onlinePresence":[],"strengths":[],"weaknesses":[],"missingFeatures":[],"painPoints":[],"opportunities":[],"recommendedServices":[],"facts":[{"text":"","evidence":"verified|inference","source":""}]}\n\nSource content:\n${trimmed.slice(0, 15000)}`;
 
-  // Updated fallback model to gemini-1.5-flash for stable rate limits
-  const modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
-
+  // Updated fallback model to gemini-2.0-flash for stable rate limits
+  const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
   const call = async (withSchema: boolean) =>
     fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`,
