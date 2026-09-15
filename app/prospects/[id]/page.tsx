@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink, FileText, Globe2, Sp
 import { notFound, redirect } from 'next/navigation';
 import { supabaseServer } from '../../../lib/supabase-server';
 import AnalyzeButton from '../../../components/AnalyzeButton';
+import ProspectPoller from '../../../components/ProspectPoller';
 
 export default async function Prospect({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -58,6 +59,9 @@ export default async function Prospect({ params }: { params: Promise<{ id: strin
 
   return (
     <>
+      {/* Background Polling Trigger for auto-updating UI */}
+      <ProspectPoller status={p.analysis_status} />
+
       <div className="detail-header">
         <div className="detail-title">
           <div className="detail-avatar">
@@ -107,6 +111,8 @@ export default async function Prospect({ params }: { params: Promise<{ id: strin
               ? 'Complete'
               : p.analysis_status === 'failed'
               ? 'Failed'
+              : p.analysis_status === 'running'
+              ? 'Running…'
               : 'Pending'}
           </div>
         </div>
